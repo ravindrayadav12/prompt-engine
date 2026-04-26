@@ -1,0 +1,201 @@
+2026-04-14 20:08:30,550 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:30,550 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:30,597 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:30,636 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:30,670 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:30,699 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:31,515 INFO | DB tables ready
+2026-04-14 20:08:31,517 INFO | DB tables ready
+2026-04-14 20:08:31,520 INFO | DB tables ready
+2026-04-14 20:08:31,523 INFO | DB tables ready
+2026-04-14 20:08:31,527 INFO | DB tables ready
+2026-04-14 20:08:35,616 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:35,975 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:35,984 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:36,010 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:36,046 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:36,102 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:08:36,760 INFO | DB tables ready
+2026-04-14 20:08:36,764 INFO | DB tables ready
+2026-04-14 20:08:36,796 INFO | DB tables ready
+2026-04-14 20:08:36,806 INFO | DB tables ready
+2026-04-14 20:08:36,829 INFO | DB tables ready
+2026-04-14 20:27:35,047 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 20:27:35,534 INFO | DB tables ready
+2026-04-14 20:33:47,321 INFO | 'write caption for student leave application' intent=caption platform=app
+2026-04-14 20:33:47,537 INFO | L4 AI generation
+2026-04-14 20:33:50,920 ERROR | ai_generate_prompts OpenAI: Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}
+2026-04-14 20:35:22,466 WARNING | ai_classify OpenAI: Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}
+2026-04-14 20:35:22,467 INFO | 'write caption for my cat' intent=caption platform=general
+2026-04-14 20:35:22,477 INFO | L4 AI generation
+2026-04-14 20:35:22,699 ERROR | ai_generate_prompts OpenAI: Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}
+2026-04-14 23:15:57,559 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:15:57,689 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:15:57,855 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:15:57,863 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:15:58,188 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:15:58,390 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:15:58,430 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:16:31,975 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:18:04,135 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:18:09,122 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:37:14,086 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-14 23:48:14,054 INFO | DB tables ready
+2026-04-14 23:48:14,065 INFO | DB tables ready
+2026-04-14 23:48:14,073 INFO | DB tables ready
+2026-04-14 23:48:14,107 INFO | DB tables ready
+2026-04-14 23:48:14,203 INFO | DB tables ready
+2026-04-14 23:48:14,210 INFO | DB tables ready
+2026-04-14 23:48:14,289 INFO | DB tables ready
+2026-04-14 23:50:03,926 INFO | DB tables ready
+2026-04-15 00:04:34,057 INFO | DB tables ready
+2026-04-15 00:05:01,627 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:04,042 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:04,229 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:04,258 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:04,657 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:05,152 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:06,538 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:06,597 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:06,768 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:05:06,864 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 00:06:06,467 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 01:11:36,744 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 01:13:35,244 WARNING | OPENROUTER_API_KEY not set — AI calls will fail
+2026-04-15 01:17:54,796 INFO | DB tables ready
+2026-04-15 01:17:54,826 INFO | DB tables ready
+2026-04-15 01:17:54,878 INFO | DB tables ready
+2026-04-15 01:17:54,881 INFO | DB tables ready
+2026-04-15 01:17:54,938 INFO | DB tables ready
+2026-04-15 01:17:54,951 INFO | DB tables ready
+2026-04-15 01:17:54,979 INFO | DB tables ready
+2026-04-15 01:17:55,017 INFO | DB tables ready
+2026-04-15 01:19:01,472 INFO | DB tables ready
+2026-04-15 01:20:41,866 WARNING | ai_classify OpenAI: Connection error.
+2026-04-15 01:20:41,867 INFO | 'write short application for leave for having fever' intent=general platform=app
+2026-04-15 01:20:41,932 INFO | L4 AI generation
+2026-04-15 01:20:43,324 ERROR | ai_generate_prompts OpenAI: Connection error.
+2026-04-15 01:21:23,032 INFO | 'write a  instagram caption for my cat' intent=caption platform=instagram
+2026-04-15 01:21:23,037 INFO | L1 exact (6)
+2026-04-15 01:22:39,562 INFO | DB tables ready
+2026-04-15 01:22:39,609 INFO | DB tables ready
+2026-04-15 01:22:39,620 INFO | DB tables ready
+2026-04-15 01:22:39,777 INFO | DB tables ready
+2026-04-15 01:22:39,865 INFO | DB tables ready
+2026-04-15 01:22:40,890 INFO | DB tables ready
+2026-04-15 01:22:40,896 INFO | DB tables ready
+2026-04-15 01:22:41,018 INFO | DB tables ready
+2026-04-15 01:22:41,036 INFO | DB tables ready
+2026-04-15 01:23:51,216 INFO | DB tables ready
+2026-04-15 01:23:51,224 INFO | DB tables ready
+2026-04-15 01:23:51,231 INFO | DB tables ready
+2026-04-15 01:23:51,266 INFO | DB tables ready
+2026-04-15 01:23:51,501 INFO | DB tables ready
+2026-04-15 01:23:51,528 INFO | DB tables ready
+2026-04-15 01:23:51,573 INFO | DB tables ready
+2026-04-15 01:23:51,646 INFO | DB tables ready
+2026-04-15 01:23:51,681 INFO | DB tables ready
+2026-04-15 01:24:14,711 INFO | 'write a application for leave due to fever' intent=email platform=app
+2026-04-15 01:24:14,753 INFO | L4 AI generation
+2026-04-15 01:24:16,286 ERROR | INSERT v0: invalid input syntax for type integer: "376b91fc-00c5-41f1-b220-f802c1a88904"
+LINE 4: ...orm like Outlook.','email','app','professional',0,'376b91fc-...
+                                                             ^
+
+2026-04-15 01:24:16,289 ERROR | INSERT v1: invalid input syntax for type integer: "376b91fc-00c5-41f1-b220-f802c1a88904"
+LINE 4: ...on a personal level.','email','app','emotional',0,'376b91fc-...
+                                                             ^
+
+2026-04-15 01:24:16,290 ERROR | INSERT v2: invalid input syntax for type integer: "376b91fc-00c5-41f1-b220-f802c1a88904"
+LINE 4: ...!" to grab attention.','email','app','engaging',0,'376b91fc-...
+                                                             ^
+
+2026-04-15 01:25:35,927 INFO | 'write a application for leave due to fever' intent=email platform=app
+2026-04-15 01:25:35,933 INFO | L4 AI generation
+2026-04-15 01:25:37,842 ERROR | INSERT v0: invalid input syntax for type integer: "af1877fc-227c-4a27-8828-145c1082d5c5"
+LINE 4: ...orm like Outlook.','email','app','professional',0,'af1877fc-...
+                                                             ^
+
+2026-04-15 01:25:37,844 ERROR | INSERT v1: invalid input syntax for type integer: "af1877fc-227c-4a27-8828-145c1082d5c5"
+LINE 4: ...verity of the fever.','email','app','emotional',0,'af1877fc-...
+                                                             ^
+
+2026-04-15 01:25:37,846 ERROR | INSERT v2: invalid input syntax for type integer: "af1877fc-227c-4a27-8828-145c1082d5c5"
+LINE 4: ... situation concisely.','email','app','engaging',0,'af1877fc-...
+                                                             ^
+
+2026-04-15 01:31:45,296 INFO | 'write a application for leave due to fever' intent=email platform=app
+2026-04-15 01:31:45,302 INFO | L4 AI generation
+2026-04-15 01:31:47,846 ERROR | INSERT v0: invalid input syntax for type integer: "d9636fa6-1de4-4287-b7a9-6870d66a2601"
+LINE 4: ...lism and respect.','email','app','professional',0,'d9636fa6-...
+                                                             ^
+
+2026-04-15 01:31:47,848 ERROR | INSERT v1: invalid input syntax for type integer: "d9636fa6-1de4-4287-b7a9-6870d66a2601"
+LINE 4: ... leave due to fever.','email','app','emotional',0,'d9636fa6-...
+                                                             ^
+
+2026-04-15 01:31:47,849 ERROR | INSERT v2: invalid input syntax for type integer: "d9636fa6-1de4-4287-b7a9-6870d66a2601"
+LINE 4: ... of humor and appeal.','email','app','engaging',0,'d9636fa6-...
+                                                             ^
+
+2026-04-22 12:23:54,708 INFO | DB tables ready
+2026-04-22 12:23:54,714 INFO | DB tables ready
+2026-04-22 12:23:54,725 INFO | DB tables ready
+2026-04-22 12:23:54,737 INFO | DB tables ready
+2026-04-22 12:23:54,746 INFO | DB tables ready
+2026-04-22 12:23:54,753 INFO | DB tables ready
+2026-04-22 12:23:54,801 INFO | DB tables ready
+2026-04-22 12:23:54,806 INFO | DB tables ready
+2026-04-22 12:23:54,933 INFO | DB tables ready
+2026-04-22 12:24:21,881 INFO | DB tables ready
+2026-04-22 12:25:45,896 INFO | 'caption for snapchat cat post' intent=caption platform=snapchat
+2026-04-22 12:25:46,113 INFO | L4 AI generation
+2026-04-22 12:25:50,311 ERROR | INSERT v0: invalid input syntax for type integer: "c731c5b5-46f7-4ed1-98ad-d81a8d703a61"
+LINE 4: ... cat post.','caption','snapchat','professional',0,'c731c5b5-...
+                                                             ^
+
+2026-04-22 12:25:50,322 ERROR | INSERT v1: invalid input syntax for type integer: "c731c5b5-46f7-4ed1-98ad-d81a8d703a61"
+LINE 4: ... on Snapchat.','caption','snapchat','emotional',0,'c731c5b5-...
+                                                             ^
+
+2026-04-22 12:25:50,328 ERROR | INSERT v2: invalid input syntax for type integer: "c731c5b5-46f7-4ed1-98ad-d81a8d703a61"
+LINE 4: ...chat cat post.','caption','snapchat','engaging',0,'c731c5b5-...
+                                                             ^
+
+2026-04-22 12:26:14,429 INFO | 'caption for snapchat cat post' intent=caption platform=snapchat
+2026-04-22 12:26:14,453 INFO | L4 AI generation
+2026-04-22 12:26:15,780 ERROR | INSERT v0: invalid input syntax for type integer: "d6639b44-77b8-4e23-b05c-4d3555218d05"
+LINE 4: ...stication.','caption','snapchat','professional',0,'d6639b44-...
+                                                             ^
+
+2026-04-22 12:26:15,785 ERROR | INSERT v1: invalid input syntax for type integer: "d6639b44-77b8-4e23-b05c-4d3555218d05"
+LINE 4: ...the audience.','caption','snapchat','emotional',0,'d6639b44-...
+                                                             ^
+
+2026-04-22 12:26:15,788 ERROR | INSERT v2: invalid input syntax for type integer: "d6639b44-77b8-4e23-b05c-4d3555218d05"
+LINE 4: ...with the post.','caption','snapchat','engaging',0,'d6639b44-...
+                                                             ^
+
+2026-04-23 08:01:32,864 INFO | DB tables ready
+2026-04-23 08:10:05,320 INFO | 'give me prompt about get important pyq of cbse 12th board' intent=question platform=general
+2026-04-23 08:10:05,537 INFO | L4 AI generation
+2026-04-23 08:10:07,153 ERROR | INSERT v0: invalid input syntax for type integer: "52106ddc-71d6-49df-be22-91357a1e7e0e"
+LINE 4: ...e or blog.','question','general','professional',0,'52106ddc-...
+                                                             ^
+
+2026-04-23 08:10:07,157 ERROR | INSERT v1: invalid input syntax for type integer: "52106ddc-71d6-49df-be22-91357a1e7e0e"
+LINE 4: ...l media post.','question','general','emotional',0,'52106ddc-...
+                                                             ^
+
+2026-04-23 08:10:07,166 ERROR | INSERT v2: invalid input syntax for type integer: "52106ddc-71d6-49df-be22-91357a1e7e0e"
+LINE 4: ...ning platform.','question','general','engaging',0,'52106ddc-...
+                                                             ^
+
+2026-04-23 08:13:36,782 INFO | DB tables ready
+2026-04-25 11:19:51,058 INFO | DB tables ready
+2026-04-25 11:23:52,740 INFO | 'instagram caption for cat' intent=caption platform=instagram
+2026-04-25 11:23:52,861 INFO | L1 exact (6)
+2026-04-25 11:24:30,415 INFO | 'instagram caption for cat' intent=caption platform=instagram
+2026-04-25 11:24:30,419 INFO | L1 exact (6)
+2026-04-26 03:37:47,152 INFO | DB tables ready
+2026-04-26 03:38:50,370 INFO | 'give me prompt for finding best job in market in it sector' intent=job platform=general
+2026-04-26 03:38:50,427 INFO | L4 AI generation
