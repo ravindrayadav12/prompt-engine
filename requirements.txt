@@ -1,5 +1,6 @@
 fastapi
 flask
+bleach
 uvicorn[standard]
 gunicorn
 psycopg2-binary
