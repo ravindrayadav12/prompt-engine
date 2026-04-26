@@ -1,12 +1,12 @@
+import os
 import psycopg2
 from psycopg2 import pool
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 connection_pool = pool.SimpleConnectionPool(
     1, 10,
-    database="promt_engine",
-    user="postgres",
-    password="gonish@21",
-    host="localhost",
-    port="5432"
+    dsn=DATABASE_URL
 )
 
 def get_conn():
