@@ -1,5 +1,7 @@
 fastapi
+flask
 uvicorn[standard]
+gunicorn
 psycopg2-binary
 openai
 scikit-learn
