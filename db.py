@@ -1,8 +1,5 @@
 import psycopg2
 from psycopg2 import pool
-
-# Connection POOL instead of single connection
-# min 1 connection, max 10 connections
 connection_pool = pool.SimpleConnectionPool(
     1, 10,
     database="promt_engine",
