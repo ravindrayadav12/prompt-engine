@@ -1,10 +1,11 @@
 fastapi
-flask
-bleach
 uvicorn[standard]
 gunicorn
-psycopg2-binary
+python-dotenv
+bleach
 openai
 scikit-learn
-pydantic>=2.0
-python-multipart
+slowapi
+psycopg2-binary
+pydantic
+httpx
