@@ -1,32 +1,3 @@
-"""
-GoNish — Prompt Engine  |  main.py  v7
-========================================
-Fixes vs v6:
-  [SECURITY]
-  • API key loaded from .env via python-dotenv — never hardcoded
-  • Rate limiting via slowapi — 30 req/min per IP on AI endpoints
-  • XSS fix — html.escape() on all user text before storing/returning
-  • SQL injection fix — ILIKE wildcard chars escaped in prompt_stats
-  • Input sanitization — bleach strips HTML from user_input
-
-  [RELIABILITY]
-  • All AI calls have timeout=15 seconds — no more infinite hangs
-  • async def on all endpoints — FastAPI handles concurrent requests
-  • CREATE TABLE moved to startup event — runs once, not per request
-  • variation_group_id uses uuid4 — no collision possible
-  • Logging to rotating file + console — logs survive server restart
-  • /health endpoint for uptime monitoring
-
-  [PERFORMANCE]
-  • TF-IDF cache — vectors cached per intent+platform group
-    so repeated searches don't re-vectorize same corpus
-  • Connection leak fix — conn always fetched inside try block
-
-  [CODE QUALITY]
-  • No bare except: pass — every exception logged
-  • GROUP_ID uses uuid so no integer collision
-"""
-
 import html
 import json
 import logging
@@ -53,20 +24,16 @@ from slowapi.util import get_remote_address
 
 from db import get_conn, release_conn
 
-# ── Load .env ─────────────────────────────────────────────────────
 load_dotenv()
 
-# ── Logging — console + rotating file ─────────────────────────────
 LOG_FORMAT = "%(asctime)s %(levelname)s | %(message)s"
 log = logging.getLogger("gonish")
 log.setLevel(logging.INFO)
 
-# Console handler
 _ch = logging.StreamHandler()
 _ch.setFormatter(logging.Formatter(LOG_FORMAT))
 log.addHandler(_ch)
 
-# File handler — keeps last 5 files of 1MB each
 try:
     _fh = logging.handlers.RotatingFileHandler(
         "gonish.log", maxBytes=1_000_000, backupCount=5, encoding="utf-8"
@@ -74,12 +41,10 @@ try:
     _fh.setFormatter(logging.Formatter(LOG_FORMAT))
     log.addHandler(_fh)
 except Exception:
-    pass   # if log file can't be created (read-only fs), just use console
+    pass   
 
-# ── Rate limiter ──────────────────────────────────────────────────
 limiter = Limiter(key_func=get_remote_address, default_limits=["200/minute"])
 
-# ── App ───────────────────────────────────────────────────────────
 app = FastAPI(title="GoNish Prompt Engine", version="7.0")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -92,8 +57,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# ── OpenRouter client ─────────────────────────────────────────────
 _API_KEY = os.getenv("OPENROUTER_API_KEY",)
 if not _API_KEY:
     log.warning("OPENROUTER_API_KEY not set — AI calls will fail")
@@ -101,7 +64,7 @@ if not _API_KEY:
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=_API_KEY,
-    timeout=15.0,   # ← global timeout: AI call hangs max 15s
+    timeout=15.0,   
 )
 
 TONE_LABELS: List[str] = ["professional", "emotional", "engaging"]
@@ -114,15 +77,9 @@ PLATFORM_SYSTEM_PROMPTS = {
     "general": "",
 }
 
-# ── Simple TF-IDF cache to avoid re-vectorizing same corpus ───────
-# Key: frozenset of prompt IDs → (vectorizer, matrix, ordered_rows)
 _TFIDF_CACHE: Dict[frozenset, Tuple] = {}
-_TFIDF_CACHE_MAX = 50   # max cached groups
+_TFIDF_CACHE_MAX = 50  
 
-
-# ================================================================
-#  STARTUP — create tables once at boot, not per request
-# ================================================================
 @app.on_event("startup")
 async def startup():
     conn = get_conn()
@@ -169,15 +126,11 @@ async def startup():
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  PYDANTIC MODELS
-# ================================================================
 def _clean(v: str, max_len: int = 500) -> str:
     """Strip HTML tags, escape XSS, enforce length."""
     v = str(v).strip()
-    v = bleach.clean(v, tags=[], strip=True)   # remove all HTML tags
-    v = html.escape(v)                          # escape remaining < > & " '
+    v = bleach.clean(v, tags=[], strip=True)  
+    v = html.escape(v)                          
     if not v:
         raise ValueError("Field cannot be empty")
     if len(v) > max_len:
@@ -214,10 +167,6 @@ class QualityRequest(BaseModel):
     @classmethod
     def validate_pt(cls, v): return _clean(v, 1000)
 
-
-# ================================================================
-#  SMART SCORE
-# ================================================================
 def compute_smart_score(rating_sum, rating_count, use_count, created_at) -> float:
     try:
         rs = float(rating_sum   or 0)
@@ -240,10 +189,6 @@ def compute_smart_score(rating_sum, rating_count, use_count, created_at) -> floa
         log.warning("compute_smart_score: %s", exc)
         return 0.0
 
-
-# ================================================================
-#  TEXT NORMALISER
-# ================================================================
 _FILLER: frozenset = frozenset({
     "a","an","the","for","of","in","on","at","to","by","as","with",
     "from","into","about","over","after","before","between","through",
@@ -263,10 +208,6 @@ def normalise(text: str) -> str:
     words = [w for w in text.split() if w not in _FILLER and len(w) > 1]
     return " ".join(words) if words else text.strip()
 
-
-# ================================================================
-#  TF-IDF SIMILARITY  (with simple cache)
-# ================================================================
 def tfidf_similarity(query: str, candidates: List[str]) -> List[Tuple[int, float]]:
     if not candidates:
         return []
@@ -282,10 +223,6 @@ def tfidf_similarity(query: str, candidates: List[str]) -> List[Tuple[int, float
         log.warning("tfidf_similarity: %s", exc)
         return [(i, 0.0) for i in range(len(candidates))]
 
-
-# ================================================================
-#  INTENT + PLATFORM DETECTION
-# ================================================================
 _INTENT_MAP: Dict[str, List[str]] = {
     "caption":       ["caption","captions","photo caption","image caption","pic caption",
                       "photo","image","pic","picture","snapshot","selfie","click"],
@@ -345,10 +282,6 @@ def detect_platform(text: str) -> str:
                 return platform
     return "general"
 
-
-# ================================================================
-#  AI CLASSIFIER
-# ================================================================
 def ai_classify(text: str) -> Tuple[str, str]:
     try:
         resp = client.chat.completions.create(
@@ -378,10 +311,6 @@ def ai_classify(text: str) -> Tuple[str, str]:
         log.warning("ai_classify: %s", exc)
         return "general", "general"
 
-
-# ================================================================
-#  AI PROMPT GENERATOR
-# ================================================================
 def ai_generate_prompts(user_input: str, intent: str, platform: str) -> Optional[List[str]]:
     p_lbl = platform if platform != "general" else "any platform"
     i_lbl = intent   if intent   != "general" else "content"
@@ -423,10 +352,6 @@ def ai_generate_prompts(user_input: str, intent: str, platform: str) -> Optional
         log.error("ai_generate_prompts: %s", exc)
         return None
 
-
-# ================================================================
-#  HELPERS
-# ================================================================
 def _sf(val, d=0.0) -> float:
     try:
         return float(val) if val is not None else d
@@ -442,7 +367,7 @@ def _build_entry(row: tuple, sim: float) -> dict:
     ss = compute_smart_score(r_rsum, r_rcount, r_ucount, r_created)
     return {
         "id":          rid,
-        "prompt":      html.unescape(r_prompt),  # unescape for display
+        "prompt":      html.unescape(r_prompt),  
         "tone":        r_tone or "professional",
         "smart_score": ss,
         "final_rank":  round((sim * 50) + (ss * 0.5), 3),
@@ -496,28 +421,15 @@ def _fetch_candidates(cursor, platform: str, intent: str) -> List[tuple]:
         log.error("_fetch_candidates: %s", exc)
         return []
 
-
-# ================================================================
-#  HEALTH CHECK
-# ================================================================
 @app.get("/health")
 async def health():
     """Uptime monitoring endpoint — returns 200 if server is alive."""
     return {"status": "ok", "version": "7.0", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-
-# ================================================================
-#  HOME
-# ================================================================
 @app.get("/")
 async def read_index():
     return FileResponse("static/index.html")
 
-
-# ================================================================
-#  ADD PROMPT — 4-layer search
-#  Rate limited: 30/minute per IP
-# ================================================================
 @app.post("/add-prompt")
 @limiter.limit("30/minute")
 async def add_prompt(request: Request, data: PromptRequest):
@@ -537,7 +449,7 @@ async def add_prompt(request: Request, data: PromptRequest):
 
         rows = _fetch_candidates(cursor, platform, intent)
 
-        # L1 — exact normalised
+      
         if rows:
             ni = normalise(ui)
             exact = [_build_entry(rows[idx], 1.0) for idx, row in enumerate(rows) if normalise(row[1]) == ni]
@@ -545,21 +457,20 @@ async def add_prompt(request: Request, data: PromptRequest):
                 log.info("L1 exact (%d)", len(exact))
                 return _serve_from_db(exact, "exact", conn, cursor)
 
-        # L2 — TF-IDF user_inputs ≥0.55
         if rows:
             s2 = [_build_entry(rows[i], s) for i, s in tfidf_similarity(ui, [r[1] for r in rows]) if s >= 0.55]
             if s2:
                 log.info("L2 semantic (%d)", len(s2))
                 return _serve_from_db(s2, "semantic", conn, cursor)
 
-        # L3 — TF-IDF prompt texts ≥0.35
+
         if rows:
             s3 = [_build_entry(rows[i], s) for i, s in tfidf_similarity(ui, [r[2] for r in rows]) if s >= 0.35]
             if s3:
                 log.info("L3 soft (%d)", len(s3))
                 return _serve_from_db(s3, "soft", conn, cursor)
 
-        # L4 — AI generation
+        
         log.info("L4 AI generation")
         variations = ai_generate_prompts(ui, intent, platform)
         if not variations:
@@ -599,11 +510,6 @@ async def add_prompt(request: Request, data: PromptRequest):
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  SELECT PROMPT (rate)
-#  Rate limited: 60/minute per IP
-# ================================================================
 @app.post("/select-prompt")
 @limiter.limit("60/minute")
 async def select_prompt(
@@ -650,16 +556,12 @@ async def select_prompt(
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  PROMPT STATS — pie chart
-# ================================================================
 @app.get("/prompt-stats")
 async def prompt_stats(user_input: str = Query(..., max_length=500)):
     conn   = get_conn()
     cursor = conn.cursor()
     try:
-        # FIX: escape wildcards so % and _ in user text don't break ILIKE
+        
         safe_q = f"%{_escape_sql_like(user_input.strip())}%"
         SQL = """
             SELECT COALESCE(tone,'professional'),
@@ -688,10 +590,6 @@ async def prompt_stats(user_input: str = Query(..., max_length=500)):
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  GET PROMPTS (admin)
-# ================================================================
 @app.get("/get-prompts")
 async def get_prompts():
     conn   = get_conn()
@@ -721,11 +619,6 @@ async def get_prompts():
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  PROMPT OPTIMIZER
-#  Rate limited: 20/minute per IP
-# ================================================================
 @app.post("/optimize-prompt")
 @limiter.limit("20/minute")
 async def optimize_prompt(request: Request, data: OptimizeRequest):
@@ -773,10 +666,6 @@ async def optimize_prompt(request: Request, data: OptimizeRequest):
         log.error("optimize_prompt: %s", exc)
         raise HTTPException(500, str(exc))
 
-
-# ================================================================
-#  PLATFORM EXPORT
-# ================================================================
 @app.get("/platform-export")
 async def platform_export(
     prompt_text: str = Query(..., max_length=1000),
@@ -792,11 +681,6 @@ async def platform_export(
     tmpl = templates.get(target, "{prompt}")
     return {"target":target,"formatted":tmpl.replace("{prompt}", prompt_text),"raw_prompt":prompt_text}
 
-
-# ================================================================
-#  PROMPT QUALITY SCORE
-#  Rate limited: 20/minute per IP
-# ================================================================
 @app.post("/prompt-quality")
 @limiter.limit("20/minute")
 async def prompt_quality(request: Request, data: QualityRequest):
@@ -832,10 +716,6 @@ async def prompt_quality(request: Request, data: QualityRequest):
         log.error("prompt_quality: %s", exc)
         raise HTTPException(500, str(exc))
 
-
-# ================================================================
-#  SAVE PROMPT
-# ================================================================
 @app.post("/save-prompt")
 async def save_prompt(data: SavePromptRequest):
     conn   = get_conn()
@@ -864,10 +744,6 @@ async def save_prompt(data: SavePromptRequest):
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  GET SAVED PROMPTS
-# ================================================================
 @app.get("/saved-prompts")
 async def get_saved_prompts(session_id: str = Query("default", max_length=100)):
     conn   = get_conn()
@@ -892,10 +768,6 @@ async def get_saved_prompts(session_id: str = Query("default", max_length=100)):
         except Exception: pass
         release_conn(conn)
 
-
-# ================================================================
-#  DELETE SAVED PROMPT
-# ================================================================
 @app.delete("/delete-saved")
 async def delete_saved(
     saved_id:   int = Query(..., ge=1),
