@@ -426,7 +426,7 @@ updateSavedBadge();
 
 async function saveThisPrompt(id,text,userInput,tone,btn){
   try{
-    const res=await fetch('http://127.0.0.1:8000/save-prompt',{
+    const res=await fetch('https://prompt-engine-1tgv.onrender.com/save-prompt',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({prompt_id:id,prompt_text:text,user_input:userInput,tone:tone,session_id:SESSION_ID})
     });
@@ -444,7 +444,7 @@ async function saveThisPrompt(id,text,userInput,tone,btn){
 
 async function deleteSaved(savedId,idx){
   try{
-    await fetch(`http://127.0.0.1:8000/delete-saved?saved_id=${savedId}&session_id=${SESSION_ID}`,{method:'DELETE'});
+    await fetch(`https://prompt-engine-1tgv.onrender.com/delete-saved?saved_id=${savedId}&session_id=${SESSION_ID}`,{method:'DELETE'});
   }catch(e){}
   savedPrompts.splice(idx,1);
   localStorage.setItem('gn_saved',JSON.stringify(savedPrompts));
@@ -484,7 +484,7 @@ function copyText(text,btn){
 /* ════ RATE ════ */
 async function ratePrompt(id,rating,btn){
   try{
-    const res=await fetch(`http://127.0.0.1:8000/select-prompt?prompt_id=${id}&rating=${rating}`,{method:'POST',headers:{'Content-Type':'application/json'}});
+    const res=await fetch(`https://prompt-engine-1tgv.onrender.com/select-prompt?prompt_id=${id}&rating=${rating}`,{method:'POST',headers:{'Content-Type':'application/json'}});
     if(!res.ok)throw new Error('Server '+res.status);
     const data=await res.json();
     btn.closest('.card').querySelectorAll('.rbtn').forEach(b=>{b.classList.remove('sel');b.classList.add('dim')});
@@ -508,7 +508,7 @@ async function ratePrompt(id,rating,btn){
 // rating_total adds weight: final_weight = picks + (rating_total * 0.5)
 async function loadPieChart(userInput){
   try{
-    const res=await fetch(`http://127.0.0.1:8000/prompt-stats?user_input=${encodeURIComponent(userInput)}`);
+    const res=await fetch(`https://prompt-engine-1tgv.onrender.com/prompt-stats?user_input=${encodeURIComponent(userInput)}`);
     if(!res.ok)return;
     const data=await res.json();
     const stats=data.stats||[];
@@ -580,7 +580,7 @@ async function sendPrompt(){
   btn.innerHTML='Working…<span class="btn-arr">↻</span>';btn.classList.add('loading');
   document.getElementById('result').innerHTML=`<div class="loader-wrap"><div class="spin"></div><div class="loader-txt">Crafting your prompts</div></div>`;
   try{
-    const res=await fetch('http://127.0.0.1:8000/add-prompt',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_input:input})});
+    const res=await fetch('https://prompt-engine-1tgv.onrender.com/add-prompt',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_input:input})});
     if(!res.ok){let d='Server error '+res.status;try{const e=await res.json();d=e.detail||d}catch(x){}document.getElementById('result').innerHTML=`<div class="err-box">⚠ ${d}</div>`;return}
     const data=await res.json();
     if(!data.variations||!data.variations.length){document.getElementById('result').innerHTML=`<div class="err-box">⚠ Unexpected server response.</div>`;return}
@@ -639,7 +639,7 @@ async function sendPrompt(){
 /* ════ EXPORT FOR PLATFORM ════ */
 async function exportFor(promptText,target){
   try{
-    const res=await fetch(`http://127.0.0.1:8000/platform-export?prompt_text=${encodeURIComponent(promptText)}&target=${target}`);
+    const res=await fetch(`https://prompt-engine-1tgv.onrender.com/platform-export?prompt_text=${encodeURIComponent(promptText)}&target=${target}`);
     if(!res.ok)throw new Error();
     const data=await res.json();
     navigator.clipboard.writeText(data.formatted).then(()=>toast(`Copied for ${target.charAt(0).toUpperCase()+target.slice(1)}`,'📋')).catch(()=>{});
@@ -656,7 +656,7 @@ async function runOptimizer(){
   const btn=document.getElementById('optBtn');
   btn.innerHTML='Optimizing…<span class="btn-arr">↻</span>';btn.classList.add('loading');
   try{
-    const res=await fetch('http://127.0.0.1:8000/optimize-prompt',{
+    const res=await fetch('https://prompt-engine-1tgv.onrender.com/optimize-prompt',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({raw_idea:rawIdea,platform,style})
     });
@@ -695,7 +695,7 @@ async function runQualityCheck(){
   btn.innerHTML='Analysing…<span class="btn-arr">↻</span>';btn.classList.add('loading');
   document.getElementById('qualResult').innerHTML=`<div class="loader-wrap" style="padding:40px 0"><div class="spin"></div></div>`;
   try{
-    const res=await fetch('http://127.0.0.1:8000/prompt-quality',{
+    const res=await fetch('https://prompt-engine-1tgv.onrender.com/prompt-quality',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({prompt_text:pt})
     });
